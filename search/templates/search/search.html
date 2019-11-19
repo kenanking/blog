@@ -1,0 +1,65 @@
+{% extends "home/home_page.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}Search{% endblock %}
+
+{% block blogposts %}
+
+
+
+
+{% if search_results %}
+<div class="col-md-12 category-and-search-title">
+    <span>关键词：<b class="main-color">"{{ search_query }}"</b>的搜索结果（共{{ search_results|length}}条）</span>
+</div>
+<ul>
+    {% for post in search_results %}
+    <div class="col-md-12 blog-post">
+        <div class="post-title">
+            <a href="{{ post.get_url }}">
+                <h2>{{ post.specific.title }}
+                </h2>
+            </a>
+            <div class="post-info">
+                <span>{{ post.specific.first_published_at }} / by
+                    {% for iter in post.specific.blog_authors.all %}
+                    <a href="#">
+                        {{ iter.author.name }}
+                    </a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            {% if post.specific.banner_image %}
+            {% image post.specific.banner_image fill-800x326 as img %}
+            <div class="post-image">
+                <img src="{{ img.url }}" alt="{{ img.alt }}">
+            </div>
+            {% endif %}
+        </div>
+        {{ post.specific.abstract }}
+        <a href="{{ post.get_url }}"
+            class="button button-style button-anim fa fa-long-arrow-right"><span>Read
+                More</span></a>
+    </div>
+    {% endfor %}
+</ul>
+
+    {% if search_results.has_previous %}
+    <a
+        href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if search_results.has_next %}
+    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+    {% endif %}
+
+{% elif search_query %}
+<div class="col-md-12 category-and-search-title">
+    <span>未找到关键词：<b class="main-color">"{{ search_query }}"</b>的搜索结果</span>
+</div>
+{% endif %}
+
+
+{% endblock %}

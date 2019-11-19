@@ -1,0 +1,19 @@
+{% extends "home/home_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block blogposts %}
+<!-- My Intro Start -->
+<div class="post-title margin-bottom-30">
+    <h2>Hi, I am <span class="main-color">{{ self.name }}</span></h2>
+
+    <ul class="knowledge">
+        <li class="bg-color-3">Student</li>
+    </ul>
+
+</div>
+<!-- My Intro End -->
+
+    {% for block in self.content %}
+        {% include_block block %}
+    {% endfor %}
+{% endblock %}

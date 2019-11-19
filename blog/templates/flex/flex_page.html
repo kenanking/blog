@@ -1,0 +1,22 @@
+{% extends "home/home_page.html" %}
+{% load wagtailcore_tags %}
+
+{% block posts %}
+<!-- My Intro Start -->
+<div class="post-title margin-bottom-30">
+    <h2>Hi, I am <span class="main-color">{{ self.subtitle }}</span></h2>
+
+    <ul class="knowledge">
+        <li class="bg-color-1">Web Designer</li>
+        <li class="bg-color-4">Web Developer</li>
+        <li class="bg-color-6">Freelancer</li>
+        <li class="bg-color-5">Consultant</li>
+    </ul>
+
+</div>
+<!-- My Intro End -->
+
+    {% for block in page.content %}
+        {% include_block block %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+
+<div class="row margin-top-40 margin-bottom-40">
+    {% for card in self.cards %}
+
+    {% image card.image fill-516x550 as img %}
+    <div class="col-md-4 col-sm-6 col-xs-12" style="margin-bottom: 15px;">
+        <a href="{{ img.url }}" class="image-popup" title="{{ card.title }}">
+            <img src="{{ img.url }}" class="img-responsive" alt="{{ img.alt }}">
+        </a>
+    </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,38 @@
+{% extends 'home/home_page.html' %}
+{% load wagtailcore_tags %}
+
+
+{% block rightside %}
+<div class="col-md-9">
+    <div class="col-md-12 page-body">
+        <div class="row">
+            <div class="sub-title">
+                <h1>{{ self.title }}</h1>
+                <a href="/"><i class="icon-home"></i></a>
+            </div>
+            <div class="col-md-12 content-page">
+                <div class="col-md-12 blog-post">
+
+                    <p>{{ self.thank_you_text|richtext }}</p>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Start -->
+    <div class="col-md-12 page-body margin-top-50 footer">
+        <footer>
+            <ul class="menu-link">
+                {% for item in navigation.menu_items.all %}
+                    <li><a href="{{ item.link }}" {% if item.open_in_new_tab %} target="_blank" {% endif %}>{{ item.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            <p>© Copyright 2019 TyBlog. All rights reserved</p>
+            <p>Powered by <a href="https://www.djangoproject.com/" target="_blank">Django</a> and <a href="https://wagtail.io/" target="_blank">Wagtail</a></p>
+            <p><a style="color: black;" href="http://www.beian.miit.gov.cn/">沪ICP备19027947号</a></p>
+        </footer>
+    </div>
+    <!-- Footer End -->
+</div>
+        {% endblock %}

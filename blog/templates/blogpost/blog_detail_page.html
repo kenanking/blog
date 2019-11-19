@@ -1,0 +1,75 @@
+{% extends "home/home_page.html" %}
+
+{% load wagtailimages_tags wagtailcore_tags %}
+
+{% load static %}
+
+{% block jumbotron %} {% endblock %}
+
+{% block poststop %}
+<div class="sub-title">
+    <a href="/" title="Go to Home Page">
+        <h1>Back Home</h1>
+    </a>
+    <a href="#comment" class="smoth-scroll"><i class="icon-bubbles"></i></a>
+</div>
+{% endblock %}
+
+{% block blogposts %}
+<div class="col-md-12 blog-post" style="display: block;">
+    <div class="post-title">
+        <h2>{{ self.title }}</h2>
+    </div>
+    <div class="post-info">
+        <span>{{ self.first_published_at }} / by
+            {% for iter in self.blog_authors.all %}
+            <a href="#" target="_blank">
+                {{ iter.author.name }}
+            </a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+            <p></p>
+        </span>
+
+        {% for block in page.content %}
+        {% include_block block %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block comment %}
+<div id="comment" class="comment" style="margin-left: 15px;">
+    <h3>发表评论</h3>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'qOLAkkI5sJPR9dz0iRmWrEkq-gzGzoHsz',
+            appKey: 'faAnP376IMvCX2HA8NVeo731',
+            verify: true
+        })
+    </script>
+    <!-- <div class="post-comments">
+        <ul>
+            <li>
+                <div class="thumb">
+                    {% image settings.blog_settings.CommentSetting.defaultpic fill-75x75 as img %}
+                    <img src="{{ img.url }}" alt="{{ img.alt }}">
+                </div>
+
+                <div class="text">
+                    <div class="cover">
+                        <h4>Jhon Doe</h4>
+                        <span>April 17, 2017</span>
+                        <p>Cras eu molestie leo, non faucibus orci. Mauris aliquet
+                            leo dictum tincidunt laoreet. Nunc imperdiet accumsan
+                            efficitur.</p>
+                        <a href="#" class="reply">Reply</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div> -->
+</div>
+{% endblock %}
